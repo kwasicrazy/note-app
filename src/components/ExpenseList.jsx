@@ -1,44 +1,24 @@
-
-// import { useSelector } from 'react-redux';
-
-// const ExpenseList = () => {
-//   const expenses = useSelector((state) => state.expenses);
-
-//   return (
-//     <ul>
-//       {expenses.map((expense, index) => (
-//         <li key={index}>{expense}</li>
-//       ))}
-//     </ul>
-//   );
-// };
-
-// export default ExpenseList;
-
-// ExpenseList.jsx
-
-// ExpenseList.jsx
-
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteExpense } from '../actions/expenseActions';
+import { useSelector, useDispatch } from "react-redux";
+import { deleteExpense } from "../fetures/expenceSlice";
+import EditExpense from "./EditExpense";
 
 const ExpenseList = () => {
-  const expenses = useSelector((state) => state.expenses);
+  const { expenses } = useSelector((state) => state.expenses);
   const dispatch = useDispatch();
-
-  const handleDeleteExpense = (expenseId) => {
-    dispatch(deleteExpense(expenseId));
-  };
 
   return (
     <div>
       <h2>Expense List</h2>
       {expenses.map((expense) => (
         <div key={expense.id}>
-          <p>ID: {expense.id}</p>
-          <p>Description: {expense.description}</p>
+          {/* <p>ID: {expense.id}</p> */}
+          <p>Description: {expense.item}</p>
           <p>Amount: {expense.amount}</p>
-          <button onClick={() => handleDeleteExpense(expense.id)}>Delete</button>
+          <p>Category : {expense.category}</p>
+          <EditExpense expense={expense} />
+          <button onClick={() => dispatch(deleteExpense(expense.id))}>
+            Delete
+          </button>
         </div>
       ))}
     </div>
@@ -46,5 +26,3 @@ const ExpenseList = () => {
 };
 
 export default ExpenseList;
-
-
